@@ -1,0 +1,57 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@shayegani66 
+ShubbamShrmali
+/
+Terraform-Project-CS
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+Terraform-Project-CS/Jenkinsfile
+@ShubbamShrmali
+ShubbamShrmali Update Jenkinsfile
+Latest commit e6590cf 8 days ago
+ History
+ 1 contributor
+30 lines (28 sloc)  654 Bytes
+
+pipeline {
+    agent any
+    tools {
+  terraform 'terraform'
+}
+    stages {
+        stage('Git checkout') {
+           steps{
+                git branch: 'main', credentialsId: 'Github', url: 'https://github.com/ShubbamShrmali/Terraform-Project-CS.git'
+            }
+        }
+        stage('terraform format check') {
+            steps{
+                sh 'terraform fmt'
+            }
+        }
+        stage('terraform Init') {
+            steps{
+                sh 'terraform init'
+            }
+        }
+        stage('terraform apply') {
+            steps{
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }
+
+    
+}
